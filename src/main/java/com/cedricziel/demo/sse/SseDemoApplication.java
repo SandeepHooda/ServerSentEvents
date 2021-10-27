@@ -1,6 +1,6 @@
 package com.cedricziel.demo.sse;
 
-import org.apache.log4j.Logger;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import javax.validation.Valid;
+
 import javax.websocket.server.PathParam;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.Map;
 @SpringBootApplication
 public class SseDemoApplication {
 
-    private static final Logger log = Logger.getLogger(SseDemoApplication.class);
+ 
 
    //private final List<SseEmitter> emitters = new ArrayList<>();
     Map<String, List<SseEmitter>> topicEmmiter = new HashMap<String, List<SseEmitter>>();
@@ -63,9 +63,9 @@ public class SseDemoApplication {
 
     @ResponseBody
     @RequestMapping(path = "/chat", method = RequestMethod.POST)
-    public Message sendMessage(@Valid Message message) {
+    public Message sendMessage( Message message) {
     	final List<SseEmitter> emitters = topicEmmiter.get(message.getTopicid());
-        log.info("Got message" + message);
+      
 
         Iterator<SseEmitter> itr = emitters.iterator();
         while(itr.hasNext()) {

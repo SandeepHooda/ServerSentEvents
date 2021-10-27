@@ -1,11 +1,5 @@
 package com.cedricziel.demo.sse;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
-
-
 public class Message {
 
 

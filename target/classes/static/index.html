@@ -7,6 +7,14 @@
     <script src="/webjars/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<audio id="myAudio">
+  <source src="Alarm06.wav" type="audio/wav">
+  
+  Your browser does not support the audio element.
+</audio>
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-push-1">
@@ -21,6 +29,7 @@
     </div>
 </div>
 <script>
+var x = document.getElementById("myAudio"); 
     var myName = null;
     var form = document.getElementById('form');
     var nameForm = null;
@@ -35,11 +44,28 @@
     var connect = function () {
         var source = new EventSource('/stream/topic/even');
 
-        source.addEventListener('open', function (e) {
-            console.log('connected');
+        source.addEventListener('connecting', function (e) {
+            console.log('connecting....');
         });
+        source.addEventListener('open', function (e) {
+            console.log('connected!');
+        });
+        
+        
+        source.addEventListener('closed', function (e) {
+            console.log('closed X');
+        });
+        source.onmessage = function (event) {
+        	 console.log("message event listner 1"+event.data);
+          }; 
+          
+          source.addEventListener('joined',  function (e) {
+              console.log("message event listner 3"+e.data);
+          }, false);
         source.addEventListener('message', function (e) {
-            console.log(e.data);
+        	x.play(); 
+            console.log("message event listner 2"+e.data);
+            console.log("message event listner 2: type "+e.event);
             var message = JSON.parse(e.data);
             var outMesage = $(
                     '<div class="row">' +
